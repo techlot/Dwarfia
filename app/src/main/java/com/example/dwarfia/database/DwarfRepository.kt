@@ -15,12 +15,12 @@ class DwarfRepository(private val dwarfDao: DwarfDao) {
     val your_collection: Flow<List<Dwarf>> = dwarfDao.getVisited()
 
 
-    fun getSingleDwarf(name: String): LiveData<Dwarf> {
+    suspend fun getSingleDwarf(name: String): Dwarf {
         var selected_dwarf = dwarfDao.getSingleDwarf(name)
         return selected_dwarf
     }
 
-    fun markAsVisited(name: String){
+    suspend fun markAsVisited(name: String){
         dwarfDao.markAsVisited(name)
     }
 

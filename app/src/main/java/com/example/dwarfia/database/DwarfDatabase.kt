@@ -41,7 +41,7 @@ abstract class DwarfDatabase : RoomDatabase() {
                     context.applicationContext,
                     DwarfDatabase::class.java,
                     "dwarf_database"
-                ).createFromAsset("database/dwarfs.db").build()
+                ).createFromAsset("database/dwarfs.db").allowMainThreadQueries().build()
                 INSTANCE = instance
                 // return instance
                 instance

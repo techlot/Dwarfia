@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -43,7 +44,21 @@ class DwarfDetailsFragment : Fragment() {
         val binding: FragmentDwarfDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dwarf_details, container, false)
         binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
-        binding.dwarf = null
+
+
+        runBlocking {val tasks = listOf(
+            lifecycleScope.async(Dispatchers.IO){
+                binding.dwarf = viewModel.getSingleDwarf(args.name)
+
+                //image = dwarf.image
+                //visited = dwarf.visited
+                //view.findViewById<TextView>(R.id.dwarf_address_text_view).text = dwarf.address
+                //view.findViewById<TextView>(R.id.dwarf_description_text_view).text = dwarf.description
+                delay(50)
+            }
+        )
+            tasks.awaitAll()
+        }
         binding.name = args.name
         return binding.root
     }
@@ -62,19 +77,19 @@ class DwarfDetailsFragment : Fragment() {
         var image = ""
         var visited = -1
 
-        /*runBlocking {val tasks = listOf(
+        runBlocking {val tasks = listOf(
             lifecycleScope.async(Dispatchers.IO){
                 val dwarf = viewModel.getSingleDwarf(args.name)
 
                 //image = dwarf.image
-                //visited = dwarf.visited
+                visited = dwarf.visited
                 //view.findViewById<TextView>(R.id.dwarf_address_text_view).text = dwarf.address
                 //view.findViewById<TextView>(R.id.dwarf_description_text_view).text = dwarf.description
                 delay(50)
             }
         )
             tasks.awaitAll()
-        }*/
+        }
 
 
 
@@ -91,6 +106,25 @@ class DwarfDetailsFragment : Fragment() {
 
                     //1 -> viewModel.markAsVisited(dwarf_name)
 
+        view.findViewById<Button>(R.id.check_button).setOnClickListener{
+            lifecycleScope.launch {
+                when (visited){
+                    0 -> {
+                        visited = 1
+                        viewModel.markAsNotVisited(args.name)
+                        requireView().findViewById<Button>(R.id.check_button).setBackgroundResource(R.drawable.circle)
+                        Toast.makeText(requireActivity(),"Marked as not visited",Toast.LENGTH_SHORT).show()
+                    }
+                    1 -> {
+                        visited = 0
+                        viewModel.markAsVisited(args.name)
+                        requireView().findViewById<Button>(R.id.check_button).setBackgroundResource(R.drawable.circle2)
+                        Toast.makeText(requireActivity(),"Marked as visited",Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+            }
+        }
 
         view.findViewById<Button>(R.id.heart_button).setOnClickListener{
             lifecycleScope.launch {

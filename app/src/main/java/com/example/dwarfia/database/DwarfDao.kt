@@ -20,10 +20,10 @@ interface DwarfDao {
     fun getVisited(): Flow<List<Dwarf>>
 
     @Query("SELECT * FROM dwarfs_table WHERE name = :name")
-    fun getSingleDwarf(name: String): LiveData<Dwarf>
+    fun getSingleDwarf(name: String): Dwarf
 
     @Query("UPDATE dwarfs_table SET visited=0 WHERE name = :name")
-    fun markAsVisited(name: String)
+    suspend fun markAsVisited(name: String)
 
     @Query("UPDATE dwarfs_table SET visited=1 WHERE name = :name")
     suspend fun markAsNotVisited(name: String)

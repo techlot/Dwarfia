@@ -27,11 +27,12 @@ class DwarfsViewModel(private val repository: DwarfRepository) : ViewModel() {
 
     //var dwarf = repository.getSingleDwarf(name)
 
+    suspend fun getSingleDwarf(name: String): Dwarf {
+        return repository.getSingleDwarf(name)
+    }
 
-    fun markAsVisited(name: String) {
+    suspend fun markAsVisited(name: String) {
         repository.markAsVisited(name)
-        var res = 5 + 3
-
     }
 
     suspend fun markAsNotVisited(name: String){
@@ -50,7 +51,7 @@ class DwarfsViewModel(private val repository: DwarfRepository) : ViewModel() {
                 Glide.with(view.context)
                     .load(url)
                     .placeholder((R.drawable.loading_animation))
-                    .error(R.drawable.ic_broken_image)
+                    .error(R.drawable.dwarf2)
                     .transform(CenterCrop())
                     .into(view)
             }

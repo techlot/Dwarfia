@@ -63,7 +63,7 @@ class DwarfsListAdapter2: ListAdapter<Dwarf, DwarfsListAdapter2.DwarfViewHolder>
                 Glide.with(image_view.context)
                     .load(imgUrl)
                     .placeholder((R.drawable.loading_animation))
-                    .error(R.drawable.dwarf)
+                    .error(R.drawable.dwarf2)
                     .transform(CenterCrop(), RoundedCorners(25))
                     .into(image_view)
             }
