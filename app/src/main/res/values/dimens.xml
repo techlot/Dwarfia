@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_tile_height">174dp</dimen>
+    <dimen name="main_tile_width">145dp</dimen>
+    <dimen name="main_gnome_title_height">18dp</dimen>
+    <dimen name="main_img_height">110dp</dimen>
+    <dimen name="main_img_width">126dp</dimen>
+    <dimen name="main_icon_size">16dp</dimen>
+    <dimen name="main_count_view_heigh">13dp</dimen>
+    <dimen name="main_right_arrow_icon">24dp</dimen>
+
+    <dimen name="main_tile_height_big">204dp</dimen>
+    <dimen name="main_tile_width_big">175dp</dimen>
+    <dimen name="main_gnome_title_height_big">18dp</dimen>
+    <dimen name="main_img_height_big">140dp</dimen>
+    <dimen name="main_img_width_big">156dp</dimen>
+    <dimen name="main_icon_size_big">18dp</dimen>
+    <dimen name="main_count_view_heigh_big">13dp</dimen>
+    <dimen name="main_right_arrow_icon_big">24dp</dimen>
+
+    <dimen name="detail_img_height">300dp</dimen>
+</resources>

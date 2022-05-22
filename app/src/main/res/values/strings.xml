@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dwarfia</string>
+    <string name="wroclaws_stars">Wroclaw\'s Stars</string>
+    <string name="u_need_to_see">Dwarfs you need to see</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="info_stars">Wroclaw\'s Stars</string>
+    <string name="your_collection">Your collection</string>
+</resources>
