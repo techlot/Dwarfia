@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dwarfia.adapters.DwarfsListAdapter
 import com.example.dwarfia.adapters.DwarfsListBigAdapter
-import com.example.dwarfia.database.Dwarf
+import com.example.dwarfia.database.Dwarf2
 import com.example.dwarfia.models.DwarfViewModelFactory
 import com.example.dwarfia.models.DwarfsViewModel
+import com.google.firebase.database.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +29,9 @@ class DwarfsListFull : Fragment() {
         DwarfViewModelFactory((activity?.application as DwarfsApplication).repository)
     }
 
+    private lateinit var dbref: DatabaseReference
+    private lateinit var dwarfStarList: ArrayList<Dwarf2>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,23 +42,38 @@ class DwarfsListFull : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        dwarfStarList = arrayListOf()
         val adp = DwarfsListBigAdapter()
-
-
-        val gridLayoutManager = GridLayoutManager(context, 2)
-
-
-        val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerview)
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerview_not_visited)
+        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adp
-        recyclerView.layoutManager = gridLayoutManager
+        recyclerView.layoutManager = horizontalLayoutManager
+        dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
+        dbref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (dwarfSnapshot in snapshot.children){
+                        val dwarf = dwarfSnapshot.getValue(Dwarf2::class.java)
+                        dwarfStarList.add(dwarf!!)
+                    }
 
 
+                    dwarfStarList.sortWith(compareByDescending { it.star!!.size })
+                    adp.submitList(dwarfStarList)
+                }
+            }
 
-        viewModel.stars.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+        /*viewModel.stars.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
             // Update the cached copy of the words in the adapter.
             dwarfs.let { adp.submitList(it) }
-        })
+        })*/
 
 
 

@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dwarfia.adapters.DwarfsListAdapter
 import com.example.dwarfia.adapters.DwarfsListAdapter2
+import com.example.dwarfia.adapters.DwarfsListBigAdapter2
 import com.example.dwarfia.database.Dwarf
+import com.example.dwarfia.database.Dwarf2
 import com.example.dwarfia.models.DwarfViewModelFactory
 import com.example.dwarfia.models.DwarfsViewModel
+import com.google.firebase.database.*
 import org.w3c.dom.Text
 import kotlin.random.Random
 
@@ -38,24 +41,51 @@ class ProfileFragment : Fragment() {
         DwarfViewModelFactory((activity?.application as DwarfsApplication).repository)
     }
 
+    private lateinit var dbref: DatabaseReference
+    private lateinit var dwarfListVisited: ArrayList<Dwarf2>
+    private lateinit var user_id: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        user_id = (activity as MainActivity?)!!.getUserId()
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val adp = DwarfsListAdapter2()
-
-        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerview3)
+        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adp
         recyclerView.layoutManager = horizontalLayoutManager
+
+        dwarfListVisited = arrayListOf()
+        dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
+        dbref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (dwarfSnapshot in snapshot.children){
+                        val dwarf = dwarfSnapshot.getValue(Dwarf2::class.java)
+                        if (dwarf!!.visited!!.contains(user_id)) {
+                            dwarfListVisited.add(dwarf!!)
+                        }
+                    }
+
+
+                    dwarfListVisited.sortWith(compareByDescending { it.star!!.size})
+                    adp.submitList(dwarfListVisited)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
 
         val list = listOf<String>("Bigfoot", "Superhero", "Mermaid", "Supervillain", "Unicorn")
         val randomIndex = Random.nextInt(list.size)
@@ -71,16 +101,16 @@ class ProfileFragment : Fragment() {
             else -> requireView().findViewById<ImageView>(R.id.pfp_image_view).setImageResource(R.drawable.unicorn)
         }
 
-        viewModel.your_collection.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
+        /*viewModel.your_collection.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
             // Update the cached copy of the words in the adapter.
             dwarfs.let { adp.submitList(it) }
             requireView().findViewById<TextView>(R.id.discovered_num_text_view).text = dwarfs.size.toString()
-        })
+        })*/
 
-        viewModel.stars.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
+/*        viewModel.stars.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
             // Update the cached copy of the words in the adapter.
             requireView().findViewById<TextView>(R.id.total_num_text_view).text = dwarfs.size.toString()
-        })
+        })*/
 
         //requireActivity().findViewById<ImageView>(R.id.arrow_wroclaw_stars).setOnClickListener {
         //        view -> view.findNavController().navigate(R.id.action_mainFragment_to_dwarfsListFull)

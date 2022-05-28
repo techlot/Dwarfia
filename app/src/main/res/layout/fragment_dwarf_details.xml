@@ -5,16 +5,24 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.dwarfia.models.DwarfsViewModel" />
-
-        <variable
             name="dwarf"
-            type="com.example.dwarfia.database.Dwarf" />
-
+            type="com.example.dwarfia.database.Dwarf2" />
         <variable
-            name="name"
+            name="user_id"
             type="String" />
+        <variable
+            name="visited"
+            type="Boolean" />
+        <variable
+            name="starred"
+            type="Boolean" />
+        <variable
+            name="hearted"
+            type="Boolean" />
+        <variable
+            name="thumbed"
+            type="Boolean" />
+
 
     </data>
 
@@ -28,7 +36,7 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="@dimen/detail_img_height"
-            app:imageUrl="@{dwarf.image}"
+            app:imageUrl="@{dwarf.img_link}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -98,9 +106,12 @@
             android:layout_height="70dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:background="@{dwarf.visited == 0 ? @drawable/circle2 : @drawable/circle}"
-            android:drawableTop="@drawable/ic_check"
+            android:background="@{@drawable/circle }"
+            android:drawableTop="@{visited ? @drawable/ic_reward_best_svgrepo_com__1_ : @drawable/ic_reward_inactive}"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="11dp"
+            android:text="Achieve"
+            android:textSize="8sp"
             app:layout_constraintBottom_toTopOf="@+id/dawarf_name_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -111,8 +122,11 @@
             android:layout_height="70dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/circle"
-            android:drawableTop="@drawable/ic_location"
+            android:drawableTop="@drawable/ic_pin"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="14dp"
+            android:text="Navigate"
+            android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="@+id/check_button"
             app:layout_constraintEnd_toStartOf="@+id/check_button"
             app:layout_constraintTop_toTopOf="@+id/check_button" />
@@ -137,8 +151,8 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="6dp"
                 android:padding="8.5dp"
-                android:background="@drawable/circle"
-                android:drawableTop="@drawable/ic_heart" />
+                android:background="@{@drawable/circle }"
+                android:drawableTop="@{hearted ? @drawable/ic_heart : @drawable/ic_heart_inactive}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/star_button"
@@ -146,9 +160,9 @@
                 android:layout_height="56dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="6dp"
+                android:background="@{@drawable/circle }"
                 android:padding="8.5dp"
-                android:background="@drawable/circle"
-                android:drawableTop="@drawable/ic_star" />
+                android:drawableTop="@{starred ? @drawable/ic_star : @drawable/ic_star2}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/thumb_button"
@@ -157,8 +171,8 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="6dp"
                 android:padding="10dp"
-                android:background="@drawable/circle"
-                android:drawableTop="@drawable/ic_thumb" />
+                android:background="@{@drawable/circle }"
+                android:drawableTop="@{thumbed ? @drawable/ic_thumb : @drawable/ic_thumb2}" />
 
 
         </LinearLayout>

@@ -17,15 +17,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.example.dwarfia.adapters.DwarfsListAdapter
 import com.example.dwarfia.database.Dwarf
+import com.example.dwarfia.database.Dwarf2
 import com.example.dwarfia.databinding.FragmentDwarfDetailsBinding
 import com.example.dwarfia.models.DwarfViewModelFactory
 import com.example.dwarfia.models.DwarfsViewModel
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.fragment_dwarf_details.*
 import kotlinx.coroutines.*
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class DwarfDetailsFragment : Fragment() {
@@ -34,19 +42,40 @@ class DwarfDetailsFragment : Fragment() {
         DwarfViewModelFactory((activity?.application as DwarfsApplication).repository)
     }
 
+    private lateinit var dbref: DatabaseReference
+    private lateinit var user_id: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
 
     ): View? {
         // Inflate the layout for this fragment
-
+        user_id = (activity as MainActivity?)!!.getUserId()
         val binding: FragmentDwarfDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_dwarf_details, container, false)
-        binding.setLifecycleOwner(this)
-        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        binding.userId=user_id
+        dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
+        dbref.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val dwarf = snapshot.child(args.name).getValue(Dwarf2::class.java)
+                    binding.dwarf = dwarf
+                    binding.visited = dwarf!!.visited!!.contains(user_id)
+                    binding.starred = dwarf!!.star!!.contains(user_id)
+                    binding.hearted = dwarf!!.heart!!.contains(user_id)
+                    binding.thumbed = dwarf!!.thumb_up!!.contains(user_id)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
 
-        runBlocking {val tasks = listOf(
+       /* runBlocking {val tasks = listOf(
             lifecycleScope.async(Dispatchers.IO){
                 binding.dwarf = viewModel.getSingleDwarf(args.name)
 
@@ -58,8 +87,8 @@ class DwarfDetailsFragment : Fragment() {
             }
         )
             tasks.awaitAll()
-        }
-        binding.name = args.name
+        }*/
+
         return binding.root
     }
 
@@ -107,28 +136,49 @@ class DwarfDetailsFragment : Fragment() {
                     //1 -> viewModel.markAsVisited(dwarf_name)
 
         view.findViewById<Button>(R.id.check_button).setOnClickListener{
-            lifecycleScope.launch {
-                when (visited){
-                    0 -> {
-                        visited = 1
-                        viewModel.markAsNotVisited(args.name)
-                        requireView().findViewById<Button>(R.id.check_button).setBackgroundResource(R.drawable.circle)
-                        Toast.makeText(requireActivity(),"Marked as not visited",Toast.LENGTH_SHORT).show()
-                    }
-                    1 -> {
-                        visited = 0
-                        viewModel.markAsVisited(args.name)
-                        requireView().findViewById<Button>(R.id.check_button).setBackgroundResource(R.drawable.circle2)
-                        Toast.makeText(requireActivity(),"Marked as visited",Toast.LENGTH_SHORT).show()
+            dbref.child(args.name).child("visited").get().addOnSuccessListener {
+                var res: Map<String, String>? =  it.getValue() as Map<String, String>
+                if (res!!.contains(user_id)){
+                    // remove
+                    dbref.child(args.name).child("visited").child(user_id).removeValue()
 
-                    }
+                } else {
+                    dbref.child(args.name).child("visited").child(user_id).setValue(user_id)
+                }
+            }
+        }
+
+
+        view.findViewById<Button>(R.id.star_button).setOnClickListener{
+            dbref.child(args.name).child("star").get().addOnSuccessListener {
+                var res: Map<String, String>? =  it.getValue() as Map<String, String>
+                if (res!!.contains(user_id)){
+                    dbref.child(args.name).child("star").child(user_id).removeValue()
+                } else {
+                    dbref.child(args.name).child("star").child(user_id).setValue(user_id)
                 }
             }
         }
 
         view.findViewById<Button>(R.id.heart_button).setOnClickListener{
-            lifecycleScope.launch {
-                //viewModel.markAsHearted(dwarf_name)
+            dbref.child(args.name).child("heart").get().addOnSuccessListener {
+                var res: Map<String, String>? =  it.getValue() as Map<String, String>
+                if (res!!.contains(user_id)){
+                    dbref.child(args.name).child("heart").child(user_id).removeValue()
+                } else {
+                    dbref.child(args.name).child("heart").child(user_id).setValue(user_id)
+                }
+            }
+        }
+
+        view.findViewById<Button>(R.id.thumb_button).setOnClickListener{
+            dbref.child(args.name).child("thumb_up").get().addOnSuccessListener {
+                var res: Map<String, String>? =  it.getValue() as Map<String, String>
+                if (res!!.contains(user_id)){
+                    dbref.child(args.name).child("thumb_up").child(user_id).removeValue()
+                } else {
+                    dbref.child(args.name).child("thumb_up").child(user_id).setValue(user_id)
+                }
             }
         }
 

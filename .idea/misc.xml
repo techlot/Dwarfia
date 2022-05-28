@@ -4,23 +4,40 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.4265625" />
+        <entry key="app/src/main/res/drawable-bg/circle3.xml" value="0.329" />
+        <entry key="app/src/main/res/drawable-bg/circle4.xml" value="0.329" />
+        <entry key="app/src/main/res/drawable-bg/ic_heart_inactive.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/circle-active.xml" value="0.1515" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/circle2.xml" value="0.1515" />
+        <entry key="app/src/main/res/drawable/circle3.xml" value="0.329" />
+        <entry key="app/src/main/res/drawable/circle4.xml" value="0.329" />
+        <entry key="app/src/main/res/drawable/circle5.xml" value="0.4025" />
         <entry key="app/src/main/res/drawable/feedback_panel.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/ic_background_vector_copy_2.xml" value="0.1135" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.4025" />
         <entry key="app/src/main/res/drawable/ic_bg_dwarfs_small.xml" value="0.2775" />
         <entry key="app/src/main/res/drawable/ic_bg_full_view.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/ic_bg_full_view_svg.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.2995" />
+        <entry key="app/src/main/res/drawable/ic_check2.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_free_gnome_vector__2_.xml" value="0.318" />
         <entry key="app/src/main/res/drawable/ic_heart.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_heart_btn.xml" value="0.5125" />
+        <entry key="app/src/main/res/drawable/ic_heart_inactive.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/ic_location.xml" value="0.4425" />
+        <entry key="app/src/main/res/drawable/ic_pin.xml" value="0.2655" />
+        <entry key="app/src/main/res/drawable/ic_placeholder.xml" value="0.2655" />
+        <entry key="app/src/main/res/drawable/ic_reward_best_svgrepo_com__1_.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/ic_reward_inactive.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/ic_right_arrow.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_spinner_1s_197px.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_star.xml" value="0.5125" />
+        <entry key="app/src/main/res/drawable/ic_star2.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/ic_thumb.xml" value="0.5125" />
+        <entry key="app/src/main/res/drawable/ic_thumb2.xml" value="0.2545" />
         <entry key="app/src/main/res/drawable/ic_wro.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/image_shadow.xml" value="0.3275" />
         <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.314" />
@@ -28,13 +45,22 @@
         <entry key="app/src/main/res/drawable/text_info_bg.xml" value="0.2615" />
         <entry key="app/src/main/res/font/montserrat.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.3268698060941828" />
+        <entry key="app/src/main/res/layout/activity_sign_in2.xml" value="0.18693009118541035" />
+        <entry key="app/src/main/res/layout/content_sign_in.xml" value="0.18693009118541035" />
         <entry key="app/src/main/res/layout/dwarf_tile_rec_view.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dwarf_tile_rec_view_big.xml" value="0.9451219512195121" />
-        <entry key="app/src/main/res/layout/fragment_dwarf_details.xml" value="0.3213213213213213" />
+        <entry key="app/src/main/res/layout/fragment_dwarf_details.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_dwarfs_list_full.xml" value="0.3109375" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.18693009118541035" />
+        <entry key="app/src/main/res/layout/fragment_first2.xml" value="0.18693009118541035" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_not_visited_list_full.xml" value="0.15121580547112462" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.18693009118541035" />
+        <entry key="app/src/main/res/layout/fragment_second2.xml" value="0.18693009118541035" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.3109375" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.18796296296296297" />
       </map>

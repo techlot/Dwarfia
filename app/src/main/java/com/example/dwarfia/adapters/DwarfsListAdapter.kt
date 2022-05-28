@@ -21,10 +21,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.dwarfia.MainFragmentDirections
 import com.example.dwarfia.R
-import com.example.dwarfia.database.Dwarf
+import com.example.dwarfia.database.Dwarf2
 import kotlinx.coroutines.awaitAll
 
-class DwarfsListAdapter: ListAdapter<Dwarf, DwarfsListAdapter.DwarfViewHolder>(DwarfsComparator()) {
+class DwarfsListAdapter: ListAdapter<Dwarf2, DwarfsListAdapter.DwarfViewHolder>(DwarfsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DwarfViewHolder {
         return DwarfViewHolder.create(parent)
@@ -32,7 +32,7 @@ class DwarfsListAdapter: ListAdapter<Dwarf, DwarfsListAdapter.DwarfViewHolder>(D
 
     override fun onBindViewHolder(holder: DwarfViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.name, current.stars_count, current.hearts_count, current.thumbs_up_count, current.image, current.address, current.description)
+        holder.bind(current.name, current.longitude, current.latitude, current.address, current.description, current.img_link, current.star, current.heart, current.thumb_up, current.visited)
     }
 
     class DwarfViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,7 +43,6 @@ class DwarfsListAdapter: ListAdapter<Dwarf, DwarfsListAdapter.DwarfViewHolder>(D
         private val image_view: ImageView = itemView.findViewById(R.id.dwarf_image_view)
 
         init {
-
             itemView.setOnClickListener{
                     val name_text_view : TextView = itemView.findViewById(R.id.dwarf_name_txt)
                     val name = name_text_view.text.toString()
@@ -54,17 +53,15 @@ class DwarfsListAdapter: ListAdapter<Dwarf, DwarfsListAdapter.DwarfViewHolder>(D
             }
         }
 
-        fun bind(name: String?, stars: Int?, hearts: Int?, thumbs_up: Int?, image: String?, address: String?, description: String?) {
+        fun bind(name: String?, longitude: String?, latitude: String?, address: String?, description: String?, img_link: String?, star: Map<String, String>?, heart: Map<String, String>?, thumb_up: Map<String, String>?, visited: Map<String, String>?) {
             name_view.text = name
-            stars_view.text = stars.toString()
-            hearts_view.text = hearts.toString()
-            thumbs_up_view.text = thumbs_up.toString()
+            stars_view.text = star!!.size.toString()
+            hearts_view.text = heart!!.size.toString()
+            thumbs_up_view.text = thumb_up!!.size.toString()
 
             //image_view.setImageURI(image?.toUri())
 
-
-
-            image?.let {
+            img_link?.let {
                 val imgUrl = it.toUri().buildUpon().scheme("https").build()
                 Glide.with(image_view.context)
                     .load(imgUrl)
@@ -85,12 +82,12 @@ class DwarfsListAdapter: ListAdapter<Dwarf, DwarfsListAdapter.DwarfViewHolder>(D
         }
     }
 
-    class DwarfsComparator : DiffUtil.ItemCallback<Dwarf>() {
-        override fun areItemsTheSame(oldItem: Dwarf, newItem: Dwarf): Boolean {
+    class DwarfsComparator : DiffUtil.ItemCallback<Dwarf2>() {
+        override fun areItemsTheSame(oldItem: Dwarf2, newItem: Dwarf2): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Dwarf, newItem: Dwarf): Boolean {
+        override fun areContentsTheSame(oldItem: Dwarf2, newItem: Dwarf2): Boolean {
             return oldItem.name == newItem.name
         }
     }
