@@ -102,23 +102,23 @@ class DwarfDetailsFragment : Fragment() {
                 dwarf ->
             requireView().findViewById<TextView>(R.id.dwarf_name_txt).text = dwarf.name
         })*/
-        viewModel.name = args.name
+      /*  viewModel.name = args.name*/
         var image = ""
         var visited = -1
 
-        runBlocking {val tasks = listOf(
+      /*  runBlocking {val tasks = listOf(
             lifecycleScope.async(Dispatchers.IO){
-                val dwarf = viewModel.getSingleDwarf(args.name)
+                val dwarf = async { viewModel.getSingleDwarf("Budoludki") }
 
                 //image = dwarf.image
-                visited = dwarf.visited
+                visited = dwarf.await().visited
                 //view.findViewById<TextView>(R.id.dwarf_address_text_view).text = dwarf.address
                 //view.findViewById<TextView>(R.id.dwarf_description_text_view).text = dwarf.description
                 delay(50)
             }
         )
             tasks.awaitAll()
-        }
+        }*/
 
 
 

@@ -1,36 +1,31 @@
 package com.example.dwarfia
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dwarfia.adapters.DwarfListWideAdapter
 import com.example.dwarfia.adapters.DwarfsListBigAdapter2
 import com.example.dwarfia.database.Dwarf2
 import com.example.dwarfia.models.DwarfViewModelFactory
 import com.example.dwarfia.models.DwarfsViewModel
 import com.google.firebase.database.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DwarfsListFull.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SearchFragment : Fragment() {
     private val viewModel: DwarfsViewModel by activityViewModels {
         DwarfViewModelFactory((activity?.application as DwarfsApplication).repository)
     }
 
     private lateinit var dbref: DatabaseReference
-    private lateinit var dwarfNotVisistedList: ArrayList<Dwarf2>
+    private lateinit var adp: DwarfListWideAdapter
+    private lateinit var dwarfAllList: ArrayList<Dwarf2>
+    private lateinit var tempAllList: ArrayList<Dwarf2>
     private lateinit var user_id: String
 
     override fun onCreateView(
@@ -39,29 +34,32 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         user_id = (activity as MainActivity?)!!.getUserId()
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adp = DwarfsListBigAdapter2()
-        val recyclerView = requireView().findViewById<RecyclerView>(R.id.search_rec_view)
-        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adp = DwarfListWideAdapter()
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerview_all)
+        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         recyclerView.adapter = adp
         recyclerView.layoutManager = horizontalLayoutManager
 
-        dwarfNotVisistedList = arrayListOf()
+        dwarfAllList = arrayListOf()
+        tempAllList = arrayListOf()
+
         dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
-        dbref.addValueEventListener(object: ValueEventListener {
+        dbref.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    for (dwarfSnapshot in snapshot.children){
+                    for (dwarfSnapshot in snapshot.children) {
                         val dwarf = dwarfSnapshot.getValue(Dwarf2::class.java)
-                        dwarfNotVisistedList.add(dwarf!!)
+                        dwarfAllList.add(dwarf!!)
                     }
-
-                    dwarfNotVisistedList.sortWith(compareByDescending { it.star!!.size })
-                    adp.submitList(dwarfNotVisistedList)
+                    tempAllList.addAll(dwarfAllList)
+                    adp.submitList(tempAllList)
                 }
             }
 
@@ -72,24 +70,59 @@ class SearchFragment : Fragment() {
         })
 
 
-        /*viewModel.stars.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
-            // Update the cached copy of the words in the adapter.
-            dwarfs.let { adp.submitList(it) }
-        })*/
-
-
 
 
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DwarfsListFull().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                tempAllList.clear()
+                adp.notifyDataSetChanged()
+                val searchText = query!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    dwarfAllList.forEach {
+                        if (it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                            tempAllList.add(it)
+                        }
+                    }
+
+                    adp.submitList(tempAllList)
+                } else {
+                    tempAllList.clear()
+                    tempAllList.addAll(dwarfAllList)
+                    adp.submitList(tempAllList)
                 }
+                return false
             }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                tempAllList.clear()
+                adp.notifyDataSetChanged()
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    dwarfAllList.forEach {
+                        if (it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                            tempAllList.add(it)
+                        }
+                    }
+
+                    adp.submitList(tempAllList)
+                } else {
+                    tempAllList.clear()
+                    tempAllList.addAll(dwarfAllList)
+                    adp.submitList(tempAllList)
+                }
+                return false
+            }
+
+        })
     }
+
+
+
 }

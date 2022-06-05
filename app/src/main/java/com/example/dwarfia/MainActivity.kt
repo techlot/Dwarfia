@@ -21,4 +21,6 @@ class MainActivity : AppCompatActivity() {
     fun getUserId(): String {
         return intent.getStringExtra("user_id").toString()
     }
+
+
 }

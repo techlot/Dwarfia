@@ -20,14 +20,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.dwarfia.MainFragmentDirections
-import com.example.dwarfia.NotVisitedListFullFragmentDirections
-import com.example.dwarfia.ProfileFragmentDirections
 import com.example.dwarfia.R
+import com.example.dwarfia.SearchFragmentDirections
 import com.example.dwarfia.database.Dwarf2
 import kotlinx.coroutines.awaitAll
-import org.jetbrains.annotations.Contract
 
-class DwarfsListAdapter2: ListAdapter<Dwarf2, DwarfsListAdapter2.DwarfViewHolder>(DwarfsComparator()) {
+class DwarfListWideAdapter: ListAdapter<Dwarf2, DwarfListWideAdapter.DwarfViewHolder>(DwarfsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DwarfViewHolder {
         return DwarfViewHolder.create(parent)
@@ -39,17 +37,18 @@ class DwarfsListAdapter2: ListAdapter<Dwarf2, DwarfsListAdapter2.DwarfViewHolder
     }
 
     class DwarfViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val name_view: TextView = itemView.findViewById(R.id.dwarf_name_txt)
-        private val stars_view: TextView = itemView.findViewById(R.id.stars_count_view)
-        private val hearts_view: TextView = itemView.findViewById(R.id.hearts_count_view)
-        private val thumbs_up_view: TextView = itemView.findViewById(R.id.thumbs_count_view)
-        private val image_view: ImageView = itemView.findViewById(R.id.dwarf_image_view)
+        private val name_view: TextView = itemView.findViewById(R.id.dwarf_name_txt2)
+        private val stars_view: TextView = itemView.findViewById(R.id.stars_count_view2)
+        private val hearts_view: TextView = itemView.findViewById(R.id.hearts_count_view2)
+        private val thumbs_up_view: TextView = itemView.findViewById(R.id.thumbs_count_view2)
+        private val image_view: ImageView = itemView.findViewById(R.id.dwarf_image_view2)
+        private val visited_or_not: TextView = itemView.findViewById(R.id.visited_or_not_txt)
 
         init {
             itemView.setOnClickListener{
-                val name_text_view : TextView = itemView.findViewById(R.id.dwarf_name_txt)
+                val name_text_view : TextView = itemView.findViewById(R.id.dwarf_name_txt2)
                 val name = name_text_view.text.toString()
-                val action = ProfileFragmentDirections.actionProfileFragmentToDwarfDetailsFragment(name)
+                val action = SearchFragmentDirections.actionSearchFragmentToDwarfDetailsFragment(name)
                 //Navigation.findNavController(itemView.rootView).navigate(action)
 
                 itemView.findNavController().navigate(action)
@@ -61,6 +60,8 @@ class DwarfsListAdapter2: ListAdapter<Dwarf2, DwarfsListAdapter2.DwarfViewHolder
             stars_view.text = star!!.size.toString()
             hearts_view.text = heart!!.size.toString()
             thumbs_up_view.text = thumb_up!!.size.toString()
+            visited_or_not.text = "Discovered by " + visited!!.size.toString() + " explorers "
+
 
             //image_view.setImageURI(image?.toUri())
 
@@ -79,7 +80,7 @@ class DwarfsListAdapter2: ListAdapter<Dwarf2, DwarfsListAdapter2.DwarfViewHolder
         companion object {
             fun create(parent: ViewGroup): DwarfViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.dwarf_tile_rec_view_big, parent, false)
+                    .inflate(R.layout.dwarf_tile_rec_view_wide, parent, false)
                 return DwarfViewHolder(view)
             }
         }

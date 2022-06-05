@@ -1,13 +1,14 @@
 package com.example.dwarfia
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -18,9 +19,14 @@ import com.example.dwarfia.adapters.DwarfsListAdapter2
 import com.example.dwarfia.adapters.DwarfsListBigAdapter2
 import com.example.dwarfia.database.Dwarf
 import com.example.dwarfia.database.Dwarf2
+import com.example.dwarfia.databinding.FragmentDwarfDetailsBinding
+import com.example.dwarfia.databinding.FragmentProfileBinding
 import com.example.dwarfia.models.DwarfViewModelFactory
 import com.example.dwarfia.models.DwarfsViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.w3c.dom.Text
 import kotlin.random.Random
 
@@ -44,6 +50,8 @@ class ProfileFragment : Fragment() {
     private lateinit var dbref: DatabaseReference
     private lateinit var dwarfListVisited: ArrayList<Dwarf2>
     private lateinit var user_id: String
+    private lateinit var visited_count: ArrayList<Dwarf2>
+    private lateinit var total_count: ArrayList<Dwarf2>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +59,11 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         user_id = (activity as MainActivity?)!!.getUserId()
+
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +74,40 @@ class ProfileFragment : Fragment() {
         recyclerView.layoutManager = horizontalLayoutManager
 
         dwarfListVisited = arrayListOf()
+
+        total_count = arrayListOf()
+        visited_count = arrayListOf()
+
+
         dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
+
+        dbref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (dwarfSnapshot in snapshot.children){
+                        val dwarf = dwarfSnapshot.getValue(Dwarf2::class.java)
+                        total_count.add(dwarf!!)
+                        if (dwarf!!.visited!!.contains(user_id)) {
+                            visited_count.add(dwarf!!)
+                        }
+                    }
+                    discovered_num_text_view.text = visited_count.size.toString()
+                    if (visited_count.size == 0) {
+                        your_collection_text_view.visibility = View.GONE
+                    } else {
+                        your_collection_text_view.visibility = View.VISIBLE
+                    }
+                    total_num_text_view.text = total_count.size.toString()
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
         dbref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -85,6 +129,8 @@ class ProfileFragment : Fragment() {
             }
 
         })
+
+
 
 
         val list = listOf<String>("Bigfoot", "Superhero", "Mermaid", "Supervillain", "Unicorn")
@@ -124,6 +170,23 @@ class ProfileFragment : Fragment() {
                 view -> view.findNavController().navigate(R.id.action_profileFragment_to_mainFragment)
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.nav_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(context, SignInActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

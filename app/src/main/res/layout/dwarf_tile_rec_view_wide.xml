@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tile_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tile_wide_height"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="4dp"
+    android:background="@drawable/layout_bg">
+
+    <TextView
+        android:id="@+id/dwarf_name_txt2"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="@font/montserrat_bold"
+        android:textAlignment="viewStart"
+        android:textColor="@color/bold_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dwarf_image_view2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dwarf_image_view2"
+        android:layout_width="@dimen/main_img_width"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.428"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dwarf_image_view2">
+
+        <ImageView
+            android:id="@+id/imageView42"
+            android:layout_width="@dimen/main_icon_size_big"
+            android:layout_height="@dimen/main_icon_size_big"
+            android:layout_marginRight="4dp"
+            app:srcCompat="@drawable/ic_thumb" />
+
+        <TextView
+            android:id="@+id/thumbs_count_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="1"
+            android:textAlignment="gravity"
+            android:textColor="@color/bold_black"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/imageView32"
+            android:layout_width="@dimen/main_icon_size_big"
+            android:layout_height="@dimen/main_icon_size_big"
+            android:layout_marginRight="4dp"
+            app:srcCompat="@drawable/ic_heart" />
+
+        <TextView
+            android:id="@+id/hearts_count_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="1"
+            android:textAlignment="gravity"
+            android:textColor="@color/bold_black"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/main_icon_size_big"
+            android:layout_height="@dimen/main_icon_size_big"
+            android:layout_marginRight="4dp"
+            app:srcCompat="@drawable/ic_star" />
+
+        <TextView
+            android:id="@+id/stars_count_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="1"
+            android:textAlignment="gravity"
+            android:textColor="@color/bold_black"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/visited_or_not_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="TextView"
+        android:textColor="@color/teal_700"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintStart_toEndOf="@+id/dwarf_image_view2"
+        app:layout_constraintTop_toBottomOf="@+id/dwarf_name_txt2" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="@dimen/main_icon_size"
+        android:layout_height="@dimen/main_icon_size_big"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintStart_toEndOf="@+id/visited_or_not_txt"
+        app:layout_constraintTop_toBottomOf="@+id/dwarf_name_txt2"
+        app:srcCompat="@drawable/ic_reward_best_svgrepo_com__1_" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

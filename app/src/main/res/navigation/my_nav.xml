@@ -96,5 +96,8 @@
         <action
             android:id="@+id/action_searchFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_dwarfDetailsFragment"
+            app:destination="@id/dwarfDetailsFragment" />
     </fragment>
 </navigation>
