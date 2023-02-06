@@ -73,7 +73,3 @@ The Dwarfs Collection screen is a personalized and engaging way for users to kee
 The Dwarfs Collection screen features a clean and modern layout, with a bright and bold color scheme that adds visual interest and provides an engaging user experience. The screen displays a collection of all the sculptures that the user has explored, with each sculpture represented by a high-quality image and the users' ratings.
 Additionally, the screen displays the total number of sculptures that the user has explored, as well as the number of sculptures that still remain to be explored. This information provides users with a sense of accomplishment and encourages them to continue their journey exploring the dwarf sculptures of Wroclaw.
 Users can tap on any of the sculptures in their collection to access the Dwarf Details screen, providing them with a comprehensive guide to the selected sculpture, including a detailed description, a rating system, and the ability to provide feedback.
-
-
-
-##### NOTE: All data including media and text presented in the implemented views above are hypothetical data and used for presentation and educational purposes only.
