@@ -1,4 +1,4 @@
-# dwarfia
+# Dwarfia
 A multimedia-oriented modern android application for exploring the main attraction of the city of Wrocław - public dwarf sculptures. 
 
 Technical Specification
