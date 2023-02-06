@@ -76,4 +76,4 @@ Users can tap on any of the sculptures in their collection to access the Dwarf D
 
 
 
-NOTE: All data including images and text presented in the views above are hypothetical data and used for presentation and educational purposes only.
+##### NOTE: All data including images and text presented in the views above are hypothetical data and used for presentation and educational purposes only.
