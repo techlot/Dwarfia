@@ -1,18 +1,11 @@
 package com.example.dwarfia.adapters
-
-import android.graphics.Outline
-import android.graphics.drawable.Animatable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.net.toUri
-import androidx.fragment.app.FragmentContainerView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,13 +13,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.dwarfia.DwarfsListFullDirections
-import com.example.dwarfia.MainFragmentDirections
 import com.example.dwarfia.R
 import com.example.dwarfia.database.Dwarf2
-import kotlinx.coroutines.awaitAll
 
 class DwarfsListBigAdapter: ListAdapter<Dwarf2, DwarfsListBigAdapter.DwarfViewHolder>(DwarfsComparator()) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DwarfViewHolder {
         return DwarfViewHolder.create(parent)
     }
@@ -48,8 +38,6 @@ class DwarfsListBigAdapter: ListAdapter<Dwarf2, DwarfsListBigAdapter.DwarfViewHo
                 val name_text_view : TextView = itemView.findViewById(R.id.dwarf_name_txt)
                 val name = name_text_view.text.toString()
                 val action = DwarfsListFullDirections.actionDwarfsListFullToDwarfDetailsFragment(name)
-                //Navigation.findNavController(itemView.rootView).navigate(action)
-
                 itemView.findNavController().navigate(action)
             }
         }
@@ -60,14 +48,12 @@ class DwarfsListBigAdapter: ListAdapter<Dwarf2, DwarfsListBigAdapter.DwarfViewHo
             hearts_view.text = heart!!.size.toString()
             thumbs_up_view.text = thumb_up!!.size.toString()
 
-            //image_view.setImageURI(image?.toUri())
-
             img_link?.let {
                 val imgUrl = it.toUri().buildUpon().scheme("https").build()
                 Glide.with(image_view.context)
                     .load(imgUrl)
                     .placeholder((R.drawable.loading_animation))
-                    .error(R.drawable.dwarf2)
+                    .error(R.drawable.dwarf_outlined)
                     .transform(CenterCrop(), RoundedCorners(25))
                     .into(image_view)
             }

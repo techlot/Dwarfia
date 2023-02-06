@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
+
+
 }
 
 apply plugin: 'com.android.application'
@@ -18,7 +20,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "API_KEY", "\"https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

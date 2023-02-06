@@ -1,6 +1,5 @@
 package com.example.dwarfia.models
 
-import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.*
@@ -9,9 +8,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.dwarfia.R
 import com.example.dwarfia.database.Dwarf
 import com.example.dwarfia.database.DwarfRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class DwarfsViewModel(private val repository: DwarfRepository) : ViewModel() {
 
@@ -51,7 +47,7 @@ class DwarfsViewModel(private val repository: DwarfRepository) : ViewModel() {
                 Glide.with(view.context)
                     .load(url)
                     .placeholder((R.drawable.loading_animation))
-                    .error(R.drawable.dwarf2)
+                    .error(R.drawable.dwarf_outlined)
                     .transform(CenterCrop())
                     .into(view)
             }

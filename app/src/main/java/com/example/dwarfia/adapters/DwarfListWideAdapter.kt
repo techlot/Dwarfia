@@ -1,29 +1,20 @@
 package com.example.dwarfia.adapters
-
-import android.graphics.Outline
-import android.graphics.drawable.Animatable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.net.toUri
-import androidx.fragment.app.FragmentContainerView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.dwarfia.MainFragmentDirections
 import com.example.dwarfia.R
 import com.example.dwarfia.SearchFragmentDirections
 import com.example.dwarfia.database.Dwarf2
-import kotlinx.coroutines.awaitAll
 
 class DwarfListWideAdapter: ListAdapter<Dwarf2, DwarfListWideAdapter.DwarfViewHolder>(DwarfsComparator()) {
 
@@ -70,7 +61,7 @@ class DwarfListWideAdapter: ListAdapter<Dwarf2, DwarfListWideAdapter.DwarfViewHo
                 Glide.with(image_view.context)
                     .load(imgUrl)
                     .placeholder((R.drawable.loading_animation))
-                    .error(R.drawable.dwarf2)
+                    .error(R.drawable.dwarf_outlined)
                     .transform(CenterCrop(), RoundedCorners(25))
                     .into(image_view)
             }

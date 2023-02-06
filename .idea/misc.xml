@@ -16,17 +16,22 @@
         <entry key="app/src/main/res/drawable/circle5.xml" value="0.4025" />
         <entry key="app/src/main/res/drawable/feedback_panel.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/ic_background_vector_copy_2.xml" value="0.1135" />
+        <entry key="app/src/main/res/drawable/ic_baseline_alternate_email_24.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.154" />
+        <entry key="app/src/main/res/drawable/ic_baseline_key_24.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.176" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.4025" />
         <entry key="app/src/main/res/drawable/ic_bg_dwarfs_small.xml" value="0.2775" />
         <entry key="app/src/main/res/drawable/ic_bg_full_view.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/ic_bg_full_view_svg.xml" value="0.1135" />
+        <entry key="app/src/main/res/drawable/ic_broken_image.xml" value="0.23" />
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/ic_check2.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_free_gnome_vector__2_.xml" value="0.318" />
         <entry key="app/src/main/res/drawable/ic_heart.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_heart_btn.xml" value="0.5125" />
         <entry key="app/src/main/res/drawable/ic_heart_inactive.xml" value="0.2545" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1425" />
         <entry key="app/src/main/res/drawable/ic_location.xml" value="0.4425" />
         <entry key="app/src/main/res/drawable/ic_pin.xml" value="0.2655" />
         <entry key="app/src/main/res/drawable/ic_placeholder.xml" value="0.2655" />

@@ -8,16 +8,12 @@ import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in_2)
-
+        setContentView(R.layout.activity_sign_in)
 
         if (FirebaseAuth.getInstance().currentUser != null) {
             val intent = Intent(this@SignInActivity, MainActivity::class.java)
@@ -73,7 +69,6 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         register_btn_txt.setOnClickListener{
             val intent = Intent(this@SignInActivity, RegisterActivity::class.java)

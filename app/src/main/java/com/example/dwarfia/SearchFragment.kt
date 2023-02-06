@@ -1,27 +1,17 @@
 package com.example.dwarfia
-
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dwarfia.adapters.DwarfListWideAdapter
-import com.example.dwarfia.adapters.DwarfsListBigAdapter2
 import com.example.dwarfia.database.Dwarf2
-import com.example.dwarfia.models.DwarfViewModelFactory
-import com.example.dwarfia.models.DwarfsViewModel
 import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
-    private val viewModel: DwarfsViewModel by activityViewModels {
-        DwarfViewModelFactory((activity?.application as DwarfsApplication).repository)
-    }
-
     private lateinit var dbref: DatabaseReference
     private lateinit var adp: DwarfListWideAdapter
     private lateinit var dwarfAllList: ArrayList<Dwarf2>
@@ -32,9 +22,8 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         user_id = (activity as MainActivity?)!!.getUserId()
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
@@ -50,7 +39,7 @@ class SearchFragment : Fragment() {
         dwarfAllList = arrayListOf()
         tempAllList = arrayListOf()
 
-        dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
+        dbref = FirebaseDatabase.getInstance(BuildConfig.API_KEY).getReference("Dwarfs")
         dbref.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -68,10 +57,6 @@ class SearchFragment : Fragment() {
             }
 
         })
-
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -83,10 +68,10 @@ class SearchFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 tempAllList.clear()
                 adp.notifyDataSetChanged()
-                val searchText = query!!.toLowerCase(Locale.getDefault())
+                val searchText = query!!.lowercase(Locale.getDefault())
                 if (searchText.isNotEmpty()) {
                     dwarfAllList.forEach {
-                        if (it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                        if (it.name!!.lowercase(Locale.getDefault()).contains(searchText)) {
                             tempAllList.add(it)
                         }
                     }
@@ -103,10 +88,10 @@ class SearchFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 tempAllList.clear()
                 adp.notifyDataSetChanged()
-                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                val searchText = newText!!.lowercase(Locale.getDefault())
                 if (searchText.isNotEmpty()) {
                     dwarfAllList.forEach {
-                        if (it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                        if (it.name!!.lowercase(Locale.getDefault()).contains(searchText)) {
                             tempAllList.add(it)
                         }
                     }
@@ -119,10 +104,6 @@ class SearchFragment : Fragment() {
                 }
                 return false
             }
-
         })
     }
-
-
-
 }

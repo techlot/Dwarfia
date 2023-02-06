@@ -127,6 +127,6 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintStart_toEndOf="@+id/visited_or_not_txt"
         app:layout_constraintTop_toBottomOf="@+id/dwarf_name_txt2"
-        app:srcCompat="@drawable/ic_reward_best_svgrepo_com__1_" />
+        app:srcCompat="@drawable/ic_reward" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

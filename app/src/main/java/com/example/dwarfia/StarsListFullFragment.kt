@@ -1,35 +1,16 @@
 package com.example.dwarfia
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dwarfia.adapters.DwarfsListBigAdapter
 import com.example.dwarfia.database.Dwarf2
-import com.example.dwarfia.models.DwarfViewModelFactory
-import com.example.dwarfia.models.DwarfsViewModel
 import com.google.firebase.database.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DwarfsListFull.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DwarfsListFull : Fragment() {
-    private val viewModel: DwarfsViewModel by activityViewModels {
-        DwarfViewModelFactory((activity?.application as DwarfsApplication).repository)
-    }
-
     private lateinit var dbref: DatabaseReference
     private lateinit var dwarfStarList: ArrayList<Dwarf2>
 
@@ -37,7 +18,6 @@ class DwarfsListFull : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dwarfs_list_full, container, false)
     }
 
@@ -46,10 +26,9 @@ class DwarfsListFull : Fragment() {
         dwarfStarList = arrayListOf()
         val adp = DwarfsListBigAdapter()
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerview_not_visited)
-        //val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adp
         recyclerView.layoutManager = GridLayoutManager(context, 2)
-        dbref = FirebaseDatabase.getInstance("https://dwarfia-7fe62-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Dwarfs")
+        dbref = FirebaseDatabase.getInstance(BuildConfig.API_KEY).getReference("Dwarfs")
         dbref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -57,7 +36,6 @@ class DwarfsListFull : Fragment() {
                         val dwarf = dwarfSnapshot.getValue(Dwarf2::class.java)
                         dwarfStarList.add(dwarf!!)
                     }
-
 
                     dwarfStarList.sortWith(compareByDescending { it.star!!.size })
                     adp.submitList(dwarfStarList)
@@ -67,28 +45,6 @@ class DwarfsListFull : Fragment() {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
         })
-
-
-        /*viewModel.stars.observe(viewLifecycleOwner, Observer<List<Dwarf>> { dwarfs ->
-            // Update the cached copy of the words in the adapter.
-            dwarfs.let { adp.submitList(it) }
-        })*/
-
-
-
-
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DwarfsListFull().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

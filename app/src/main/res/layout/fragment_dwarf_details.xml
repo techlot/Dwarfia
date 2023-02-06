@@ -105,7 +105,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="@{@drawable/circle }"
-            android:drawableTop="@{visited ? @drawable/ic_reward_best_svgrepo_com__1_ : @drawable/ic_reward_inactive}"
+            android:drawableTop="@{visited ? @drawable/ic_reward : @drawable/ic_reward_inactive}"
             android:fontFamily="@font/montserrat_regular"
             android:padding="11dp"
             android:text="Achieve"
@@ -160,7 +160,7 @@
                 android:layout_marginTop="6dp"
                 android:background="@{@drawable/circle }"
                 android:padding="8.5dp"
-                android:drawableTop="@{starred ? @drawable/ic_star : @drawable/ic_star2}" />
+                android:drawableTop="@{starred ? @drawable/ic_star : @drawable/ic_star_inactive}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/thumb_button"
@@ -170,7 +170,7 @@
                 android:layout_marginTop="6dp"
                 android:padding="10dp"
                 android:background="@{@drawable/circle }"
-                android:drawableTop="@{thumbed ? @drawable/ic_thumb : @drawable/ic_thumb2}" />
+                android:drawableTop="@{thumbed ? @drawable/ic_thumb : @drawable/ic_thumb_inactive}" />
 
 
         </LinearLayout>
