@@ -75,4 +75,5 @@ Additionally, the screen displays the total number of sculptures that the user h
 Users can tap on any of the sculptures in their collection to access the Dwarf Details screen, providing them with a comprehensive guide to the selected sculpture, including a detailed description, a rating system, and the ability to provide feedback.
 
 
+
 NOTE: All data including images and text presented in the views above are hypothetical data and used for presentation and educational purposes only.
