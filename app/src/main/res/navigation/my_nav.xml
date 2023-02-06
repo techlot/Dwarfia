@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.dwarfia.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_dwarfDetailsFragment3"
+            app:destination="@id/dwarfDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_dwarfsListFull"
+            app:destination="@id/dwarfsListFull"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_notVisitedListFullFragment"
+            app:destination="@id/notVisitedListFullFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dwarfsListFull"
+        android:name="com.example.dwarfia.DwarfsListFull"
+        android:label="fragment_dwarfs_list_full"
+        tools:layout="@layout/fragment_dwarfs_list_full" >
+        <action
+            android:id="@+id/action_dwarfsListFull_to_dwarfDetailsFragment"
+            app:destination="@id/dwarfDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notVisitedListFullFragment"
+        android:name="com.example.dwarfia.NotVisitedListFullFragment"
+        android:label="fragment_not_visited_list_full"
+        tools:layout="@layout/fragment_not_visited_list_full" >
+        <action
+            android:id="@+id/action_notVisitedListFullFragment_to_dwarfDetailsFragment"
+            app:destination="@id/dwarfDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.dwarfia.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dwarfDetailsFragment"
+        android:name="com.example.dwarfia.DwarfDetailsFragment"
+        android:label="fragment_dwarf_details"
+        tools:layout="@layout/fragment_dwarf_details" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.dwarfia.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_dwarfDetailsFragment"
+            app:destination="@id/dwarfDetailsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.dwarfia.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_dwarfDetailsFragment"
+            app:destination="@id/dwarfDetailsFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_wro"
+    tools:context=".MainFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_not_visited"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wroclaws_stars_view"
+        tools:listitem="@layout/dwarf_tile_rec_view" />
+
+    <TextView
+        android:id="@+id/wroclaws_stars_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/wroclaws_stars"
+        android:textColor="@color/bold_black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview_not_visited"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/my_collection_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:listitem="@layout/dwarf_tile_rec_view" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/u_need_to_see"
+        android:textColor="@color/bold_black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_not_visited" />
+
+    <ImageView
+        android:id="@+id/arrow_wroclaw_stars"
+        android:layout_width="@dimen/main_right_arrow_icon"
+        android:layout_height="@dimen/main_right_arrow_icon"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/wroclaws_stars_view"
+        app:layout_constraintStart_toEndOf="@+id/wroclaws_stars_view"
+        app:layout_constraintTop_toTopOf="@+id/wroclaws_stars_view"
+        app:srcCompat="@drawable/ic_right_arrow" />
+
+    <ImageView
+        android:id="@+id/arrow_not_visited"
+        android:layout_width="@dimen/main_right_arrow_icon"
+        android:layout_height="@dimen/main_right_arrow_icon"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:srcCompat="@drawable/ic_right_arrow" />
+
+    <Button
+        android:id="@+id/my_collection_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/my_collection_button_bg"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="My collection"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/circle"
+        android:textColor="@color/black"
+        android:drawableTop="@drawable/ic_baseline_search_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

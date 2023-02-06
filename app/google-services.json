@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882227557948",
+    "project_id": "dwarfia-7fe62",
+    "storage_bucket": "dwarfia-7fe62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882227557948:android:743e38a4fc7f9c584e3539",
+        "android_client_info": {
+          "package_name": "com.example.dwarfia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882227557948-hso6p0aiqflmg2d1pb4rqh2mgeulo20d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY2WdTfrou66fKMJOoT0WyKg91baR3YK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882227557948-hso6p0aiqflmg2d1pb4rqh2mgeulo20d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

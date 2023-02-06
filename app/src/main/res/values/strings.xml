@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Dwarfia</string>
+    <string name="wroclaws_stars">Wroclaw\'s Stars</string>
+    <string name="u_need_to_see">Dwarfs you need to see</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="your_collection">Your collection</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="welcome_msg">Hi! Cześć! Привіт!</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="sign_in_msg">Sign in to continue</string>
+    <string name="forgot_pwd_msg">Forgot password?</string>
+    <string name="sign_up_to_start">Sign up to start your adventure!</string>
+</resources>
